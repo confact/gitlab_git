@@ -175,13 +175,6 @@ module Gitlab
         parent_ids.first
       end
 
-      # Shows the diff between the commit's parent and the commit.
-      #
-      # Cuts out the header and stats from #to_patch and returns only the diff.
-      def to_diff(options = {})
-        diff_from_parent(options).patch
-      end
-
       # Returns a diff object for the changes from this commit's first parent.
       # If there is no parent, then the diff is between this commit and an
       # empty repo.  See Repository#diff for keys allowed in the +options+
@@ -224,16 +217,6 @@ module Gitlab
 
       def stats
         Gitlab::Git::CommitStats.new(self)
-      end
-
-      def to_patch(options = {})
-        begin
-          raw_commit.to_mbox(options)
-        rescue Rugged::InvalidError => ex
-          if ex.message =~ /Commit \w+ is a merge commit/
-            'Patch format is not currently supported for merge commits.'
-          end
-        end
       end
 
       # Get a collection of Rugged::Reference objects for this commit.
