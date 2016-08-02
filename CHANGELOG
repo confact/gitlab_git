@@ -1,3 +1,6 @@
+v 10.4.3
+  - Add deltas_only option for DiffCollection, which improves performance and saves memory
+
 v 10.4.2
   - Improve performance of a decorated DiffCollection instance
 
